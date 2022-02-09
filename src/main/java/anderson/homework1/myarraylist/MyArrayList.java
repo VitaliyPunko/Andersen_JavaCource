@@ -3,7 +3,8 @@ package anderson.homework1.myarraylist;
 public interface MyArrayList<T> {
 
     //necessary methods
-    void add();
+
+    void add(T element);
 
     void sort();
 
@@ -16,4 +17,6 @@ public interface MyArrayList<T> {
     int size();
 
     //other methods
+
+    MyArrayList<T> copy(MyArrayList<T> currentList);
 }
