@@ -81,4 +81,8 @@ public class MyArrayListImplTest {
         });
     }
 
+    public void sort(){
+        return;
+    }
+
 }
