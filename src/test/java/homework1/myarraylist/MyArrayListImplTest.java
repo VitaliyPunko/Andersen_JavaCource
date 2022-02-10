@@ -80,5 +80,6 @@ public class MyArrayListImplTest {
             myArrayList.delete(2);
         });
     }
+    public void print(){}
 
 }
