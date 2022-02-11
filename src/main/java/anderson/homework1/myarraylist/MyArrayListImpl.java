@@ -16,6 +16,17 @@ public class MyArrayListImpl<T> implements MyArrayList<T> {
         array = new Object[initialCapacity];
     }
 
+    @Override
+    public void add(T element) {
+        if (currentIndex <= array.length - 1) {
+            array[currentIndex] = element;
+            currentIndex++;
+        } else {
+            Object[] obj = new Object[initialCapacity * 2];
+            System.arraycopy(array, 0, obj, 0, initialCapacity);
+            array = obj;
+        }
+    }
     /*
      * If myArrayList is full -> create new array with bigger size
      * @param element
@@ -31,11 +42,6 @@ public class MyArrayListImpl<T> implements MyArrayList<T> {
 //        }
 //    }
 
-
-    @Override
-    public void add(T element) {
-
-    }
 
     @Override
     public void sort() {
