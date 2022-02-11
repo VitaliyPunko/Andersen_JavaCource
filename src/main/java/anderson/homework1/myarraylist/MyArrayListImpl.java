@@ -50,7 +50,15 @@ public class MyArrayListImpl<T> implements MyArrayList<T> {
 
     @Override
     public void concat(MyArrayList anotherList) {
-
+        Object[] newArray = new Object[this.array.length + anotherList.size()];
+        Object[] anotherArray = new Object[anotherList.size()];
+        for (int i = 0; i < anotherList.size(); i++) {
+            anotherArray[i] = anotherList.get(i);
+        }
+        System.arraycopy(array, 0, newArray, 0, array.length);
+        System.arraycopy(anotherArray, 0, newArray, currentIndex, anotherArray.length);
+        currentIndex = currentIndex + anotherList.size();
+        this.array = newArray;
     }
 
     /*

@@ -72,7 +72,7 @@ public class MyArrayListImplTest {
     }
 
     @Test
-    public void shouldThrowException() {
+    public void shouldThrowExceptionDeleteWrongIndex() {
         MyArrayList<String> myArrayList = new MyArrayListImpl<>();
         myArrayList.add("Hello");
         myArrayList.add("World");
@@ -81,7 +81,27 @@ public class MyArrayListImplTest {
         });
     }
 
-    public void sort(){
+    @Test
+    public void shouldConcatMyArrayListToAnother() {
+        MyArrayList<String> myArrayList = new MyArrayListImpl<>();
+        myArrayList.add("Hello");
+        myArrayList.add("Beauty");
+        myArrayList.add("World");
+        int sizeBeforeConcat = myArrayList.size();
+
+        MyArrayList<String> anotherList = new MyArrayListImpl<>();
+        anotherList.add("This");
+        anotherList.add("is");
+        anotherList.add("another");
+        anotherList.add("list");
+        myArrayList.concat(anotherList);
+        int sizeAfterConcat = myArrayList.size();
+
+        Assertions.assertEquals(sizeBeforeConcat + anotherList.size(), sizeAfterConcat);
+        Assertions.assertEquals(myArrayList.get(4), anotherList.get(1));
+    }
+
+    public void sort() {
         return;
     }
 
