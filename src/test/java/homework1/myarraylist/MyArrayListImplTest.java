@@ -9,7 +9,7 @@ public class MyArrayListImplTest {
 
     @Test
     public void shouldAddElementInMyList() {
-        MyArrayList<Integer> myArrayList = new MyArrayListImpl<>();
+        MyArrayList<Integer> myArrayList = new MyArrayListImpl<>(1);
         int sizeBefore = myArrayList.size();
         myArrayList.add(1);
         myArrayList.add(2);
@@ -20,7 +20,7 @@ public class MyArrayListImplTest {
 
     @Test
     public void shouldReturnCorrectSize() {
-        MyArrayList<Integer> myArrayList = new MyArrayListImpl<>();
+        MyArrayList<Integer> myArrayList = new MyArrayListImpl<>(10);
         int sizeBefore = myArrayList.size();
         myArrayList.add(1);
         myArrayList.add(2);
@@ -80,6 +80,9 @@ public class MyArrayListImplTest {
             myArrayList.delete(2);
         });
     }
-    public void print(){}
+
+    public void sort(){
+        return;
+    }
 
 }
