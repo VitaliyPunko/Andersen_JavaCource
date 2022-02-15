@@ -6,6 +6,7 @@ package anderson.homework1.myarraylist;
 // 2 двухфакторная авторизация, что дает и где прописывать код?
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class MyArrayListImpl<T> implements MyArrayList<T> {
 
@@ -49,8 +50,21 @@ public class MyArrayListImpl<T> implements MyArrayList<T> {
 
 
     @Override
-    public void sort() {
-
+    public void sort(Comparator<? super T> c) {
+        T[] array1 = (T[]) this.array;
+        for (int i = 0; i < currentIndex; i++) {
+            int minIndex = i;
+            T min = array1[i];
+            for (int j = i + 1; j < currentIndex; j++) {
+                if (c.compare(array1[j], array1[minIndex]) < 0) {
+                    min = array1[j];
+                    minIndex = j;
+                }
+            }
+            T temp = array1[i];
+            array1[i] = min;
+            array1[minIndex] = temp;
+        }
     }
 
     @Override
@@ -89,8 +103,6 @@ public class MyArrayListImpl<T> implements MyArrayList<T> {
     /**
      * Return count of elements
      * not a size of array
-     *
-     * @return
      */
     @Override
     public int size() {

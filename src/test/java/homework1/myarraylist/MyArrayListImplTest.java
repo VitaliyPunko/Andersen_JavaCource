@@ -101,8 +101,15 @@ public class MyArrayListImplTest {
         Assertions.assertEquals(myArrayList.get(4), anotherList.get(1));
     }
 
+    @Test
     public void sort() {
-        return;
+        MyArrayList<String> myArrayList = new MyArrayListImpl<>();
+        myArrayList.add("Hello");
+        myArrayList.add("Beauty");
+        myArrayList.add("World");
+        myArrayList.sort(String::compareToIgnoreCase);
+
+        Assertions.assertEquals("Beauty", myArrayList.get(0));
     }
 
 }

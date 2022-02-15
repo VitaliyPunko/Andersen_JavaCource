@@ -1,12 +1,14 @@
 package anderson.homework1.myarraylist;
 
+import java.util.Comparator;
+
 public interface MyArrayList<T> {
 
     //necessary methods
 
     void add(T element);
 
-    void sort();
+    void sort(Comparator<? super T> c);
 
     void concat(MyArrayList<T> anotherList);
 
