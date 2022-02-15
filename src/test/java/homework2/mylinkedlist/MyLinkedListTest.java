@@ -136,4 +136,14 @@ public class MyLinkedListTest {
         Assertions.assertTrue(sizeBeforeConcat < sizeAfterConcat);
         Assertions.assertEquals(myLinkedList.getLast(), anotherLinkedList.getLast());
     }
+
+    @Test
+    public void shouldSort() {
+        MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
+        myLinkedList.add("Power");
+        myLinkedList.add("and");
+        myLinkedList.add("honor");
+        myLinkedList.sort(String::compareToIgnoreCase);
+        Assertions.assertEquals("and", myLinkedList.get(0));
+    }
 }

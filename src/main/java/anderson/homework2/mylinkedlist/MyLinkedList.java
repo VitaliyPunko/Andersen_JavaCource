@@ -1,12 +1,14 @@
 package anderson.homework2.mylinkedlist;
 
+import java.util.Comparator;
+
 public interface MyLinkedList<T> {
 
     //necessary methods
 
     void add(T element);
 
-    void sort();
+    void sort(Comparator<? super T> c);
 
     void concat(MyLinkedList<T> anotherList);
 
@@ -23,4 +25,6 @@ public interface MyLinkedList<T> {
     T getLast();
 
     void addAll(MyLinkedList<T> anotherList);
+
+    void clear();
 }

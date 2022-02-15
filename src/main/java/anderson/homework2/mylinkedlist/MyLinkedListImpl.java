@@ -1,5 +1,7 @@
 package anderson.homework2.mylinkedlist;
 
+import java.util.Comparator;
+
 public class MyLinkedListImpl<T> implements MyLinkedList<T> {
 
     private int size = 0;
@@ -42,9 +44,29 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         size++;
     }
 
+    /*
+    selection sort
+     */
     @Override
-    public void sort() {
-
+    public void sort(Comparator<? super T> c) {
+        T[] array = (T[]) this.toArray();
+        for (int i = 0; i < array.length; i++) {
+            int minIndex = i;
+            T min = array[i];
+            for (int j = i + 1; j < array.length; j++) {
+                if (c.compare(array[j], array[minIndex]) < 0) {
+                    min = array[j];
+                    minIndex = j;
+                }
+            }
+            T temp = array[i];
+            array[i] = min;
+            array[minIndex] = temp;
+        }
+        this.clear();
+        for (T t : array) {
+            this.add(t);
+        }
     }
 
     @Override
@@ -58,7 +80,9 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
     public boolean delete(int index) {
         checkIndex(index);
         Node<T> x = getNodeByIndex(index);
-        if (x.prev == null) { // если удаляем первый элемент
+        if (x.next == null && x.prev == null) {
+            x.item = null;
+        } else if (x.prev == null) { // если удаляем первый элемент
             Node<T> node = x.next;
             node.prev = null;
             first = node;
@@ -110,7 +134,7 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         if (index < (size / 2)) { //если индекс в первой половине листа, то проходим с начала листа
             x = first;
             for (int i = 0; i < index; i++) {
-                x = first.next;
+                x = x.next;
             }
         } else { // иначе идем с хвоста
             x = last;
@@ -142,5 +166,25 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
         stringBuilder.append("}");
         return stringBuilder.toString();
+    }
+
+    private Object[] toArray() {
+        if (size == 0) {
+            return new Object[0];
+        }
+        Node<T> node = first;
+        Object[] array = new Object[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = node.item;
+            node = node.next;
+        }
+        return array;
+    }
+
+    @Override
+    public void clear() {
+        first = null;
+        last = null;
+        size = 0;
     }
 }
