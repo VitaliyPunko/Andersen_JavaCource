@@ -8,11 +8,11 @@ public abstract class Duck {
     FlyBehavior flyBehavior;
     QuackBehavior quackBehavior;
 
-    void performQuack() {
-        quackBehavior.quack();
+    public String performQuack() {
+        return quackBehavior.quack();
     }
 
-    void performFly() {
+    public void performFly() {
         flyBehavior.fly();
     }
 
