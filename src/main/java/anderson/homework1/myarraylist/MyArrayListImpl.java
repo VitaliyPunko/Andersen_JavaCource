@@ -68,7 +68,7 @@ public class MyArrayListImpl<T> implements MyArrayList<T> {
     }
 
     @Override
-    public void concat(MyArrayList anotherList) {
+    public void concat(MyArrayList<T> anotherList) {
         Object[] newArray = new Object[this.array.length + anotherList.size()];
         Object[] anotherArray = new Object[anotherList.size()];
         for (int i = 0; i < anotherList.size(); i++) {
@@ -131,7 +131,7 @@ public class MyArrayListImpl<T> implements MyArrayList<T> {
         return newArray;
     }
 
-    /*
+    /**
      * toString returns only elements that was added;
      * @return beauty view of MyArrayList
      */
