@@ -1,4 +1,4 @@
-package anderson.homework3.patterns.strategyDuck.quack;
+package anderson.homework3.patterns.strategyduck.quack;
 
 public class Quack implements QuackBehavior {
 

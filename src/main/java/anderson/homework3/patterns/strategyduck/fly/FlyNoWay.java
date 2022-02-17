@@ -1,4 +1,4 @@
-package anderson.homework3.patterns.strategyDuck.fly;
+package anderson.homework3.patterns.strategyduck.fly;
 
 public class FlyNoWay implements FlyBehavior {
 

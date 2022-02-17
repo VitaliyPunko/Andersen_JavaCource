@@ -1,7 +1,7 @@
-package anderson.homework3.patterns.strategyDuck;
+package anderson.homework3.patterns.strategyduck;
 
-import anderson.homework3.patterns.strategyDuck.fly.FlyWithWings;
-import anderson.homework3.patterns.strategyDuck.quack.Quack;
+import anderson.homework3.patterns.strategyduck.fly.FlyWithWings;
+import anderson.homework3.patterns.strategyduck.quack.Quack;
 
 public class MallardDuck extends Duck {
 

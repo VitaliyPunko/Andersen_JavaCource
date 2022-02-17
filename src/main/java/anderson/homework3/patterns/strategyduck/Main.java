@@ -1,6 +1,6 @@
-package anderson.homework3.patterns.strategyDuck;
+package anderson.homework3.patterns.strategyduck;
 
-import anderson.homework3.patterns.strategyDuck.fly.FlyRocketPowered;
+import anderson.homework3.patterns.strategyduck.fly.FlyRocketPowered;
 
 public class Main {
     public static void main(String[] args) {
