@@ -1,9 +1,4 @@
 package anderson.homework1.myarraylist;
-// наконец-то разобрался с работой Git и Idea,
-// в домашнее задание могу добавить только данный комментарий,
-// дабы засвидетельствовать, что что-то делал эти дни
-// мои вопросы: 1 зачем нужены связка логин пароль, если для удаленного доступа необходим SSH
-// 2 двухфакторная авторизация, что дает и где прописывать код?
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -33,21 +28,6 @@ public class MyArrayListImpl<T> implements MyArrayList<T> {
             array = obj;
         }
     }
-    /*
-     * If myArrayList is full -> create new array with bigger size
-     * @param element
-     */
-//    @Override
-//    public void add(T element) {
-//        if (currentIndex == initialCapacity) {
-//            Object[] newArray = changeSize(array);
-//            newArray[currentIndex++] = element;
-//            array = newArray;
-//        } else {
-//            array[currentIndex++] = element;
-//        }
-//    }
-
 
     @Override
     public void sort(Comparator<? super T> c) {
