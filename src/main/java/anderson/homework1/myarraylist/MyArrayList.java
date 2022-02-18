@@ -2,23 +2,24 @@ package anderson.homework1.myarraylist;
 
 import java.util.Comparator;
 
-public interface MyArrayList<T> {
+    public interface MyArrayList<T> {
 
-    //necessary methods
+        //necessary methods
 
-    void add(T element);
+        void add(T element);
 
-    void sort(Comparator<? super T> c);
+        void sort(Comparator<? super T> c);
 
-    void concat(MyArrayList<T> anotherList);
+        void concat(MyArrayList<T> anotherList);
 
-    boolean delete(int index);
+        boolean delete(int index);
 
-    T get(int index);
+        T get(int index);
 
-    int size();
+        int size();
 
-    //other methods
+        //other methods
 
-    MyArrayList<T> copy(MyArrayList<T> currentList);
-}
+        MyArrayList<T> copy(MyArrayList<T> currentList);
+    }
+
