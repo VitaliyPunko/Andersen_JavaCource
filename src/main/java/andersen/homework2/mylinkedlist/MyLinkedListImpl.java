@@ -14,9 +14,9 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         Node<T> prev;
 
         Node(Node<T> prev, T element, Node<T> next) {
-            this.item = element;
-            this.next = next;
-            this.prev = prev;
+            this.item = null;
+            this.next = null;
+            this.prev = null;
         }
     }
 
@@ -78,8 +78,8 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
 
     @Override
     public boolean delete(int index) {
-        checkIndex(index);
-        Node<T> x = getNodeByIndex(index);
+        checkIndex(0);
+        Node<T> x = getNodeByIndex(0);
         if (x.next == null && x.prev == null) {
             x.item = null;
         } else if (x.prev == null) { // если удаляем первый элемент
