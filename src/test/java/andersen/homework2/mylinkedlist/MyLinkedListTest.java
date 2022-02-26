@@ -3,10 +3,10 @@ package andersen.homework2.mylinkedlist;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class MyLinkedListTest {
+class MyLinkedListTest {
 
     @Test
-    public void shouldAddElementIntoMyLinkedList() {
+    void shouldAddElementIntoMyLinkedList() {
         MyLinkedList<Integer> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add(0);
         myLinkedList.add(3);
@@ -19,7 +19,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldDeleteElementInTheMiddleFromMyLinkedList() {
+    void shouldDeleteElementInTheMiddleFromMyLinkedList() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("Power");
         myLinkedList.add("and");
@@ -35,7 +35,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldDeleteFirstElementInMyLinkedList() {
+    void shouldDeleteFirstElementInMyLinkedList() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("delete me, please");
         myLinkedList.add("Power");
@@ -51,7 +51,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldDeleteLastElementInMyLinkedList() {
+    void shouldDeleteLastElementInMyLinkedList() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("Power");
         myLinkedList.add("and");
@@ -67,7 +67,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldReturnFirstElement() {
+    void shouldReturnFirstElement() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("Power");
         myLinkedList.add("and");
@@ -77,7 +77,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldReturnLastElement() {
+    void shouldReturnLastElement() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("Power");
         myLinkedList.add("and");
@@ -87,7 +87,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldAddAllElementsFromAnotherList() {
+    void shouldAddAllElementsFromAnotherList() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("Power");
         myLinkedList.add("and");
@@ -102,7 +102,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldCreateListByAnotherList() {
+    void shouldCreateListByAnotherList() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("Power");
         myLinkedList.add("and");
@@ -115,7 +115,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldConcatAnotherListToThis() {
+    void shouldConcatAnotherListToThis() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("Power");
         myLinkedList.add("and");
@@ -136,7 +136,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void shouldSort() {
+    void shouldSort() {
         MyLinkedList<String> myLinkedList = new MyLinkedListImpl<>();
         myLinkedList.add("Power");
         myLinkedList.add("and");

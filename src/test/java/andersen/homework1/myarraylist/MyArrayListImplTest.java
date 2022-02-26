@@ -3,10 +3,10 @@ package andersen.homework1.myarraylist;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class MyArrayListImplTest {
+class MyArrayListImplTest {
 
     @Test
-    public void shouldAddElementInMyList() {
+    void shouldAddElementInMyList() {
         MyArrayList<Integer> myArrayList = new MyArrayListImpl<>();
         int sizeBefore = myArrayList.size();
         myArrayList.add(1);
@@ -17,7 +17,7 @@ public class MyArrayListImplTest {
     }
 
     @Test
-    public void shouldReturnCorrectSize() {
+    void shouldReturnCorrectSize() {
         MyArrayList<Integer> myArrayList = new MyArrayListImpl<>();
         int sizeBefore = myArrayList.size();
         myArrayList.add(1);
@@ -29,7 +29,7 @@ public class MyArrayListImplTest {
     }
 
     @Test
-    public void shouldCopyOneListToAnother() {
+    void shouldCopyOneListToAnother() {
         MyArrayList<String> myArrayList = new MyArrayListImpl<>();
         myArrayList.add("Hello");
         myArrayList.add(null);
@@ -44,7 +44,7 @@ public class MyArrayListImplTest {
     }
 
     @Test
-    public void shouldReturnElementByIdMethodGet() {
+    void shouldReturnElementByIdMethodGet() {
         MyArrayList<String> myArrayList = new MyArrayListImpl<>();
         myArrayList.add("Hello");
         myArrayList.add("Beauty");
@@ -57,7 +57,7 @@ public class MyArrayListImplTest {
     }
 
     @Test
-    public void shouldDeleteElement() {
+    void shouldDeleteElement() {
         MyArrayList<String> myArrayList = new MyArrayListImpl<>();
         myArrayList.add("Hello");
         myArrayList.add("Beauty");
@@ -70,7 +70,7 @@ public class MyArrayListImplTest {
     }
 
     @Test
-    public void shouldThrowExceptionDeleteWrongIndex() {
+    void shouldThrowExceptionDeleteWrongIndex() {
         MyArrayList<String> myArrayList = new MyArrayListImpl<>();
         myArrayList.add("Hello");
         myArrayList.add("World");
@@ -80,7 +80,7 @@ public class MyArrayListImplTest {
     }
 
     @Test
-    public void shouldConcatMyArrayListToAnother() {
+    void shouldConcatMyArrayListToAnother() {
         MyArrayList<String> myArrayList = new MyArrayListImpl<>();
         myArrayList.add("Hello");
         myArrayList.add("Beauty");
@@ -100,7 +100,7 @@ public class MyArrayListImplTest {
     }
 
     @Test
-    public void sort() {
+    void sort() {
         MyArrayList<String> myArrayList = new MyArrayListImpl<>();
         myArrayList.add("Hello");
         myArrayList.add("Beauty");
