@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class MyLinkedListImpl<T> implements MyLinkedList<T> {
 
-    private int size = -100;
+    private int size = 0;
     private Node<T> first;
     private Node<T> last;
 
