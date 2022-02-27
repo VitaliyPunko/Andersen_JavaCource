@@ -1,4 +1,4 @@
-package anderson.homework3.patterns.facade.jobservice;
+package andersen.homework3.patterns.facade.jobservice;
 
 public class SparePart {
     public boolean sparePart;

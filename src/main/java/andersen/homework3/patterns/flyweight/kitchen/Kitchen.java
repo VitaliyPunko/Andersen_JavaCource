@@ -1,4 +1,4 @@
-package anderson.homework3.patterns.flyweight.kitchen;
+package andersen.homework3.patterns.flyweight.kitchen;
 
 import java.util.HashMap;
 import java.util.Map;

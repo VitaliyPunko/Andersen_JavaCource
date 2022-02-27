@@ -1,7 +1,7 @@
-package anderson.homework3.patterns.flyweight;
+package andersen.homework3.patterns.flyweight;
 
-import anderson.homework3.patterns.flyweight.kitchen.Cook;
-import anderson.homework3.patterns.flyweight.kitchen.Kitchen;
+import andersen.homework3.patterns.flyweight.kitchen.Cook;
+import andersen.homework3.patterns.flyweight.kitchen.Kitchen;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,4 @@
-package anderson.homework3.patterns.flyweight.kitchen;
-
-import anderson.homework3.patterns.flyweight.kitchen.Cook;
+package andersen.homework3.patterns.flyweight.kitchen;
 
 public class SaladCook implements Cook {
     @Override

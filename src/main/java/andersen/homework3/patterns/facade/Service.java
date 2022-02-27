@@ -1,9 +1,9 @@
-package anderson.homework3.patterns.facade;
+package andersen.homework3.patterns.facade;
 
-import anderson.homework3.patterns.facade.jobservice.JobService;
-import anderson.homework3.patterns.facade.jobservice.Master;
-import anderson.homework3.patterns.facade.jobservice.OpenService;
-import anderson.homework3.patterns.facade.jobservice.SparePart;
+import andersen.homework3.patterns.facade.jobservice.JobService;
+import andersen.homework3.patterns.facade.jobservice.Master;
+import andersen.homework3.patterns.facade.jobservice.OpenService;
+import andersen.homework3.patterns.facade.jobservice.SparePart;
 
 public class Service {
     OpenService openService = new OpenService();
