@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+    <title>Randomize game</title>
+</head>
+
+<body>
+<section class="randomize">
+    <div class="container">
+        <div class="logo">
+            <img src="../static/img/dice.svg" alt="logo" class="logo_img" th:src="@{/img/dice.svg}">
+            <div class="logo_text">Randomize</div>
+        </div>
+        <h1 class="title">Find your players!</h1>
+        <div class="tired">
+            <h2 class="title_big">Want to use a comfortable randomize? <br> Is information lost all the time? <br>
+                Tired of Excel spreadsheets?</h2>
+        </div>
+        <button class="promo_btn" onclick="location.href='list_page.html'">
+            <div class="btn_text">
+                Start random!
+            </div>
+        </button>
+        <div class="arrow">
+            <img src="../static/img/arrow.svg" alt="arrow up" th:src="@{/img/arrow.svg}">
+        </div>
+        <h2 class=" use_randomize">
+            Just use our application!
+        </h2>
+    </div>
+</section>
+</body>
+</html>

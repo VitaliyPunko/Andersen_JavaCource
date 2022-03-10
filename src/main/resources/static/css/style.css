@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box; /* чтоб размер блока был равен заданному нами с учетом marginov and paddingov */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    width: 1140px;
+    /*height: auto;*/
+    margin: 0 auto; /* выровнять по центру по горезонтали */
+}
+
+.randomize {
+    height: 802px;
+    background: url('../img/background.jpg') center center/cover no-repeat;
+    padding: 20px 0 61px 0;
+    /*height: min-content;*/
+}
+
+.logo .logo_img {
+    height: 250px;
+    width: 250px;
+    display: block; /* т.к. тег image строчный, то margin: 0 auto не сработает. Надо указать, что это блочнфй элемент */
+    margin: 0 auto;
+}
+
+.logo .logo_text {
+    color: wheat;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 24px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: -15px;
+}
+
+.title {
+    margin-top: 10px;
+    color: white;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 41px;
+    line-height: 41px;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h2 {
+    text-align: center;
+    color: wheat;
+    font-weight: 700;
+}
+
+.promo_btn {
+    display: block;
+    margin: 40px auto 10px auto;
+    width: 313px;
+    height: 72px;
+    left: 805px;
+    top: 551px;
+    background: linear-gradient(0deg, #8c8484 0%, #3AB6DA 100%);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.promo_btn .btn_text {
+    font-family: Roboto Condensed;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 21px;
+    line-height: 24px;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.22);
+}
+
+.arrow {
+    margin: 0 auto;
+    height: 150px;
+    width: 150px;
+}
+
+.use_randomize {
+    font-size: xxx-large;
+}
