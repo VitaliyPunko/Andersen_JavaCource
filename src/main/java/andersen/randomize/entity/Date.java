@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Table(name = "lesson")
 @Entity
-public class Lesson {
+@Table(name = "dates")
+public class Date {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +16,20 @@ public class Lesson {
     @Column(name = "date")
     private LocalDate date;
 
-    @OneToMany(mappedBy = "lesson",
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "lesson_date",
+            joinColumns = @JoinColumn(name = "date_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
     private List<Student> students;
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDate getDate() {
@@ -30,5 +38,13 @@ public class Lesson {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

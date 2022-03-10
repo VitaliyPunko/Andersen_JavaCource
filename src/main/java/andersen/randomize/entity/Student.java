@@ -1,9 +1,10 @@
 package andersen.randomize.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Table(name = "student")
 @Entity
+@Table(name = "students")
 public class Student {
 
     @Id
@@ -14,25 +15,26 @@ public class Student {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "score")
+    private double score;
 
-    @Column(name = "points")
-    private double points;
+    @Column(name = "is_capitan")
+    boolean isCapitan;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "team_id")
-    Team team;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lesson_id")
-    Lesson lesson;
-
-    public Student() {
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "lesson_date",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "date_id")
+    )
+    private List<Date> dates;
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,47 +45,27 @@ public class Student {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public double getScore() {
+        return score;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setScore(double score) {
+        this.score = score;
     }
 
-    public double getPoints() {
-        return points;
+    public boolean isCapitan() {
+        return isCapitan;
     }
 
-    public void setPoints(double points) {
-        this.points = points;
+    public void setCapitan(boolean capitan) {
+        isCapitan = capitan;
     }
 
-    public Team getTeam() {
-        return team;
+    public List<Date> getDates() {
+        return dates;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public Lesson getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", points=" + points +
-                ", team=" + team +
-                ", lesson=" + lesson +
-                '}';
+    public void setDates(List<Date> dates) {
+        this.dates = dates;
     }
 }

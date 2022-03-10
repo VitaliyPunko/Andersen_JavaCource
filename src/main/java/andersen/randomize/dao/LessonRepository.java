@@ -1,9 +1,7 @@
 package andersen.randomize.dao;
 
-import andersen.randomize.entity.Lesson;
+import andersen.randomize.entity.Lessons;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface LessonRepository extends CrudRepository<Lesson, Integer> {
+public interface LessonRepository extends CrudRepository<Lessons, Integer> {
 }
