@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+Ask: <span th:text="${ask.getFullName()}">Ask</span>
+<br>
+Answer: <span th:text="${answer.getFullName()}">Answer</span>
+
+<div>
+    <div class="correct_btn">
+        <a class="btn btn-primary" th:href="@{/correct}" href="http://localhost:8080/correct" role="button"
+           onclick="display('correct_text')">Correct</a>
+
+        <div id="correct_text" class="correct_text_none" style="display: none">
+            <span th:text="${ask.getFullName()}">Get one point </span>
+            <span th:text="${answer.getFullName()}">Get one point </span>
+        </div>
+    </div>
+    <div class="inaccurate_btn">
+        <a class="btn btn-primary" th:href="@{/inaccurate}" href="http://localhost:8080/inaccurate" role="button"
+           onclick="display('inaccurate_text')">Inaccurate</a>
+        <div id="inaccurate_text" class="inaccurate_text_none" style="display: none">
+            <span th:text="${ask.getFullName()}">Get one point </span>
+            <span th:text="${answer.getFullName()}">Get a half point </span>
+        </div>
+    </div>
+    <div class="wrong_btn">
+        <a class="btn btn-primary" th:href="@{/wrong}" href="http://localhost:8080/wrong" role="button">Wrong</a>
+        <div id="wrong_text" class="wrong_text_none" style="display: none">
+            <span th:text="${ask.getFullName()}">Get one point </span>
+            <span th:text="${answer.getFullName()}">Get zero point </span>
+        </div>
+    </div>
+
+</div>
+
+<br>
+
+<div>
+    <a class="btn btn-primary" href="http://localhost:8080/findAll" role="button">To the list</a>
+    <a class="btn btn-primary" href="#" role="button">Next question</a>
+</div>
+<script>
+    function display(id) {
+        document.getElementById(id).style.display = "block";
+    };
+</script>
+
+</body>
+</html>
