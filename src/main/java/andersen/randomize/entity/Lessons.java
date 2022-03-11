@@ -1,6 +1,7 @@
 package andersen.randomize.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -12,13 +13,16 @@ public class Lessons {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    Date date;
+    @Column(name = "date")
+    private LocalDate date;
 
-    @OneToMany
-    @JoinColumn(name = "student_id")
-    List<Student> students;
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(
+            name = "student_lesson",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private List<Lessons> lessons;
 
     public int getId() {
         return id;
@@ -28,19 +32,27 @@ public class Lessons {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public List<Lessons> getLessons() {
+        return lessons;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setLessons(List<Lessons> lessons) {
+        this.lessons = lessons;
+    }
+
+    @Override
+    public String toString() {
+        return "Lessons{" +
+                "id=" + id +
+                ", date=" + date +
+                '}';
     }
 }
