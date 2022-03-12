@@ -19,13 +19,13 @@ public class Lesson {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "student_lesson",
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
-    private List<Lesson> lessons;
+    private List<Student> students;
 
     public Lesson() {
     }
@@ -46,12 +46,12 @@ public class Lesson {
         this.date = date;
     }
 
-    public List<Lesson> getLessons() {
-        return lessons;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     @Override

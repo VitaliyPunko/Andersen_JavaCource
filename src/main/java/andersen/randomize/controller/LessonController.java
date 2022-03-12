@@ -4,6 +4,7 @@ import andersen.randomize.dao.LessonRepository;
 import andersen.randomize.dao.StudentRepository;
 import andersen.randomize.entity.Lesson;
 import andersen.randomize.entity.Student;
+import andersen.randomize.service.wrapper.StudentListWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -38,18 +40,19 @@ public class LessonController {
 
     @PostMapping("/choseDate")
     String showStudentByDate(@ModelAttribute("lesson") Lesson lesson, Model model) {
-        //если нет такой в бд, то создать
-        if (lesson.getDate().isBefore(LocalDate.now())) { //проверить now с сегодняшней датой
-            //getStudent by Date
+        //TODO:если нет такой в бд, то создать
+        //TODO: nullPointer
+        if (lesson.getDate().isBefore(LocalDate.now())) {
             List<Student> students = studentRepository.findAllByDate(lesson.getDate());
             LOGGER.debug("Students are: {} were at date {}", students, lesson.getDate());
-            System.out.println(students);
         } else {
-            //return all students
+            lessonRepository.save(lesson);//create new lesson
             List<Student> students = StreamSupport.stream(studentRepository.findAll().spliterator(), false)
                     .collect(Collectors.toList());
-            model.addAttribute("students", students);
+            StudentListWrapper studentWrapper = new StudentListWrapper();
+            studentWrapper.setStudents((ArrayList<Student>) students);
+            model.addAttribute("wrapper", studentWrapper);
         }
-        return "list_page";
+        return "list";
     }
 }

@@ -15,27 +15,43 @@
 </head>
 
 <body>
-<table class="table table-striped table-dark table-hover">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Points</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${studentList.empty}">
-        <td colspan="4"> There aren't student</td>
-    </tr>
-    <tr th:each="list : ${studentList}">
-        <td><span th:text="${list.id}"> Id</span></td>
-        <td><span th:text="${list.name}">Name</span></td>
-        <td><span th:text="${list.surname}"> Surname</span></td>
-        <td><span th:text="${list.points}"> Points</span></td>
-    </tr>
-    </tbody>
-</table>
+<form th:action="@{/presentStudents}" th:method="post" th:object="${wrapper}">
+    <table class="table table-striped table-dark table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Score</th>
+            <th scope="col">isCapitan</th>
+            <th scope="col">isPresent</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${wrapper.students.empty}">
+            <td colspan="4"> There aren't student</td>
+        </tr>
+        <tr th:each="current, stat : *{students}">
+            <td><span th:text="${current.id}"> Id</span></td>
+            <td><span th:text="${current.name}">Name</span></td>
+            <td><span th:text="${current.score}"> Score</span></td>
+            <td><span th:text="${current.isCapitan}"> Score</span></td>
+            <td>
+                <input type="checkbox" class="is_student_present" placeholder="Enter"
+                       th:name="|students[${stat.index}].id|"
+                       th:value="${current.getId()}"
+                       th:checked="${current.isPresent()}"/>
+                <!--                <input type="checkbox" th:field="*{students[__${stat.index}__].present}" />-->
+                <!--                <input type="hidden" th:field="*{students[__${stat.index}__].id}" />-->
+                <!--                <input type="hidden" th:field="*{students[__${stat.index}__].name}" />-->
+                <!--                <input type="hidden" th:field="*{students[__${stat.index}__].score}" />-->
+                <!--                <input type="hidden" th:field="*{students[__${stat.index}__].capitan}" />-->
+                <!--                <input type="hidden" th:field="*{students[__${stat.index}__].present}" />-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" value="Star the game">
+</form>
 <br>
 <a class="btn btn-primary" th:href="@{/start}" href="http://localhost:8080/begin" role="button">Begin</a>
 
