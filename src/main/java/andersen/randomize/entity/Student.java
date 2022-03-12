@@ -19,15 +19,19 @@ public class Student {
     private double score;
 
     @Column(name = "is_capitan")
-    boolean isCapitan;
+    private boolean isCapitan;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
-            name = "lesson_date",
+            name = "student_lesson",
             joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "date_id")
+            inverseJoinColumns = @JoinColumn(name = "lesson_id")
     )
-    private List<Date> dates;
+    private List<Lesson> lessons;
 
     public int getId() {
         return id;
@@ -61,11 +65,29 @@ public class Student {
         isCapitan = capitan;
     }
 
-    public List<Date> getDates() {
-        return dates;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setDates(List<Date> dates) {
-        this.dates = dates;
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", score=" + score +
+                ", isCapitan=" + isCapitan +
+                '}';
     }
 }

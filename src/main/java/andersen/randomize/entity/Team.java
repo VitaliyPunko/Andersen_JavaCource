@@ -4,36 +4,20 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "lessons")
-public class Lessons {
+@Table(name = "teams")
+public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    Date date;
-
-    @OneToMany
-    @JoinColumn(name = "student_id")
-    List<Student> students;
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            mappedBy = "team", fetch = FetchType.LAZY)
+    private List<Student> students;
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public List<Student> getStudents() {
@@ -42,5 +26,12 @@ public class Lessons {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                '}';
     }
 }
