@@ -2,8 +2,12 @@ package andersen.randomize.parser;
 
 
 
+import andersen.randomize.controller.LessonController;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,7 +17,7 @@ import java.text.SimpleDateFormat;
 public class XlsParser {
 
     private String file = "";
-    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-DD");
+    public static Logger LOGGER = LoggerFactory.getLogger(XlsParser.class);
 
     Workbook workbook;
 
@@ -23,7 +27,7 @@ public class XlsParser {
             workbook = new HSSFWorkbook(new FileInputStream(String.valueOf(fileInputStream)));
             for (Row row: workbook.getSheetAt(0)){
                 for (Cell cell: row){
-                    System.out.println(getCell(cell));
+                   LOGGER.debug(getCell(cell));
                 }
             }
 
@@ -35,6 +39,7 @@ public class XlsParser {
 
     public static String getCell(Cell cell) {
         String res ="";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-DD");
 
         switch (cell.getCellType()) {
             case STRING:
