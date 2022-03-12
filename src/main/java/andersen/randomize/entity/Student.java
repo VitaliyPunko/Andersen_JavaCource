@@ -19,7 +19,7 @@ public class Student {
     private double score;
 
     @Column(name = "is_capitan")
-    private boolean isCapitan;
+    private boolean capitan;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
@@ -31,7 +31,30 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id")
     )
-    private List<Lessons> lessons;
+    private List<Lesson> lessons;
+
+    @Transient
+    private boolean present;
+
+    public Student() {
+    }
+//
+//    public Student(int id, String name, double score, boolean isCapitan) {
+//        this.id = id;
+//        this.name = name;
+//        this.score = score;
+//        this.isCapitan = isCapitan;
+//    }
+//
+//    public Student(int id, String name, double score, boolean isCapitan, Team team, List<Lesson> lessons, boolean isPresent) {
+//        this.id = id;
+//        this.name = name;
+//        this.score = score;
+//        this.isCapitan = isCapitan;
+//        this.team = team;
+//        this.lessons = lessons;
+//        this.isPresent = isPresent;
+//    }
 
     public int getId() {
         return id;
@@ -58,11 +81,11 @@ public class Student {
     }
 
     public boolean isCapitan() {
-        return isCapitan;
+        return capitan;
     }
 
     public void setCapitan(boolean capitan) {
-        isCapitan = capitan;
+        this.capitan = capitan;
     }
 
     public Team getTeam() {
@@ -73,12 +96,20 @@ public class Student {
         this.team = team;
     }
 
-    public List<Lessons> getLessons() {
+    public List<Lesson> getLessons() {
         return lessons;
     }
 
-    public void setLessons(List<Lessons> lessons) {
+    public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
+    }
+
+    public boolean isPresent() {
+        return present;
+    }
+
+    public void setPresent(boolean present) {
+        this.present = present;
     }
 
     @Override
@@ -87,7 +118,7 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", score=" + score +
-                ", isCapitan=" + isCapitan +
+                ", isCapitan=" + capitan +
                 '}';
     }
 }

@@ -1,12 +1,14 @@
 package andersen.randomize.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "lessons")
-public class Lessons {
+public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,15 +16,19 @@ public class Lessons {
     private int id;
 
     @Column(name = "date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "student_lesson",
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
-    private List<Lessons> lessons;
+    private List<Student> students;
+
+    public Lesson() {
+    }
 
     public int getId() {
         return id;
@@ -40,12 +46,12 @@ public class Lessons {
         this.date = date;
     }
 
-    public List<Lessons> getLessons() {
-        return lessons;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setLessons(List<Lessons> lessons) {
-        this.lessons = lessons;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     @Override

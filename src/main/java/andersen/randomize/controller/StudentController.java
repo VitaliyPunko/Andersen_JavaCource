@@ -1,23 +1,28 @@
 package andersen.randomize.controller;
 
-import andersen.randomize.dao.StudentRepository;
 import andersen.randomize.entity.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import andersen.randomize.service.StudentService;
+import andersen.randomize.service.wrapper.StudentListWrapper;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@RestController
+import java.util.List;
+
+@Controller
 public class StudentController {
 
-    private final StudentRepository studentRepository;
+    private final StudentService studentService;
 
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public StudentController(andersen.randomize.service.StudentService studentService) {
+        this.studentService = studentService;
     }
 
-    @GetMapping("/findAll")
-    Iterable<Student> findAll() {
-        return studentRepository.findAll();
+    @PostMapping("/presentStudents")
+    String getAllPresent(@ModelAttribute("studentList") StudentListWrapper studentWrapper, Model model) {
+        List<Student> presentedToday = studentService.getPresentedStudentById(studentWrapper); //this return rows only with id
+        model.addAttribute("presentedStudents", presentedToday);
+        return "presentList";
     }
-
-
 }
