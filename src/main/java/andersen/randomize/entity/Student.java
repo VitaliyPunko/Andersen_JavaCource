@@ -31,7 +31,7 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id")
     )
-    private List<Lessons> lessons;
+    private List<Lesson> lessons;
 
     public int getId() {
         return id;
@@ -73,11 +73,11 @@ public class Student {
         this.team = team;
     }
 
-    public List<Lessons> getLessons() {
+    public List<Lesson> getLessons() {
         return lessons;
     }
 
-    public void setLessons(List<Lessons> lessons) {
+    public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
 
