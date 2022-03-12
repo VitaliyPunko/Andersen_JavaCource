@@ -22,8 +22,8 @@ public class XlsParser {
     Workbook workbook;
 
     {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(file);
+        try (FileInputStream fileInputStream = new FileInputStream(file)){
+
             workbook = new HSSFWorkbook(new FileInputStream(String.valueOf(fileInputStream)));
             for (Row row: workbook.getSheetAt(0)){
                 for (Cell cell: row){
@@ -32,8 +32,9 @@ public class XlsParser {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("context", e);
         }
+
     }
 
 
