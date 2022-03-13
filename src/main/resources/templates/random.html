@@ -15,9 +15,9 @@
 </head>
 
 <body>
-Ask: <span th:text="${ask.getFullName()}">Ask</span>
+Ask: <span th:text="${ask.getName()}">Ask</span>
 <br>
-Answer: <span th:text="${answer.getFullName()}">Answer</span>
+Answer: <span th:text="${answer.getName()}">Answer</span>
 
 <div>
     <div class="correct_btn">
@@ -25,23 +25,23 @@ Answer: <span th:text="${answer.getFullName()}">Answer</span>
            onclick="display('correct_text')">Correct</a>
 
         <div id="correct_text" class="correct_text_none" style="display: none">
-            <span th:text="${ask.getFullName()}">Get one point </span>
-            <span th:text="${answer.getFullName()}">Get one point </span>
+            <span th:text="${ask.getName()}">Get one point </span>
+            <span th:text="${answer.getName()}">Get one point </span>
         </div>
     </div>
     <div class="inaccurate_btn">
         <a class="btn btn-primary" th:href="@{/inaccurate}" href="http://localhost:8080/inaccurate" role="button"
            onclick="display('inaccurate_text')">Inaccurate</a>
         <div id="inaccurate_text" class="inaccurate_text_none" style="display: none">
-            <span th:text="${ask.getFullName()}">Get one point </span>
-            <span th:text="${answer.getFullName()}">Get a half point </span>
+            <span th:text="${ask.getName()}">Get one point </span>
+            <span th:text="${answer.getName()}">Get a half point </span>
         </div>
     </div>
     <div class="wrong_btn">
         <a class="btn btn-primary" th:href="@{/wrong}" href="http://localhost:8080/wrong" role="button">Wrong</a>
         <div id="wrong_text" class="wrong_text_none" style="display: none">
-            <span th:text="${ask.getFullName()}">Get one point </span>
-            <span th:text="${answer.getFullName()}">Get zero point </span>
+            <span th:text="${ask.getName()}">Get one point </span>
+            <span th:text="${answer.getName()}">Get zero point </span>
         </div>
     </div>
 

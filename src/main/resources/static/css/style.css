@@ -7,15 +7,15 @@
 .container {
     position: relative;
     width: 1140px;
-    /*height: auto;*/
+    height: auto;
     margin: 0 auto; /* выровнять по центру по горезонтали */
 }
 
 .randomize {
-    height: 802px;
-    background: url('../img/background.jpg') center center/cover no-repeat;
+/*    height: 802px;*/
+    
     padding: 20px 0 61px 0;
-    /*height: min-content;*/
+    height: min-content;
 }
 
 .logo .logo_img {
@@ -48,12 +48,6 @@
     align-items: center;
     text-align: center;
     text-transform: uppercase;
-}
-
-h2 {
-    text-align: center;
-    color: wheat;
-    font-weight: 700;
 }
 
 .promo_btn {
@@ -90,4 +84,16 @@ h2 {
 
 .use_randomize {
     font-size: xxx-large;
+}
+
+body {
+    background: url('../img/background.jpg') center center/cover no-repeat;
+    background-attachment: fixed;
+}
+
+
+h2 {
+    text-align: center;
+    color: wheat;
+    font-weight: 700;
 }

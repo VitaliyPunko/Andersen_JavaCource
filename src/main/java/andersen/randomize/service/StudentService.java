@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface StudentService {
 
-    List<Student> getPresentedStudentById(StudentListWrapper studentWrapper);
+    void getPresentedStudentById(StudentListWrapper studentWrapper);
+
+    List<Student> findRandomPlayers();
 }
