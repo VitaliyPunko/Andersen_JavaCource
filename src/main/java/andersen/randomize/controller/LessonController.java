@@ -24,7 +24,7 @@ import java.util.stream.StreamSupport;
 @Controller
 public class LessonController {
 
-    Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LessonController.class);
 
     private final LessonRepository lessonRepository;
     private final StudentRepository studentRepository;
@@ -42,7 +42,6 @@ public class LessonController {
 
     @PostMapping("/choseDate")
     String showStudentByDate(@Valid @ModelAttribute("lesson") Lesson lesson, BindingResult bindingResult, Model model) {
-        //TODO:если нет такой в бд, то создать
         if (bindingResult.hasErrors()) {
             return "chose_lesson_date";
         }
@@ -55,7 +54,7 @@ public class LessonController {
                     .collect(Collectors.toList());
             StudentListWrapper studentWrapper = new StudentListWrapper();
             studentWrapper.setStudents((ArrayList<Student>) students);
-            studentWrapper.setDate(lesson.getDate());
+            studentWrapper.setLesson(lesson);
             model.addAttribute("wrapper", studentWrapper);
         }
         return "list";
