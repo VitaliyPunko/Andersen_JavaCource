@@ -9,9 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import javax.validation.Valid;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,9 +41,11 @@ public class LessonController {
     }
 
     @PostMapping("/choseDate")
-    String showStudentByDate(@ModelAttribute("lesson") Lesson lesson, Model model) {
+    String showStudentByDate(@Valid @ModelAttribute("lesson") Lesson lesson, BindingResult bindingResult, Model model) {
         //TODO:если нет такой в бд, то создать
-        //TODO: nullPointer
+        if (bindingResult.hasErrors()) {
+            return "chose_lesson_date";
+        }
         if (lesson.getDate().isBefore(LocalDate.now())) {
             List<Student> students = studentRepository.findAllByDate(lesson.getDate());
             LOGGER.debug("Students are: {} were at date {}", students, lesson.getDate());

@@ -1,5 +1,6 @@
 package andersen.randomize.entity;
 
+import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Lesson {
     private int id;
 
     @Column(name = "date")
+    @NotNull(message = "date is a required field")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
