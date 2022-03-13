@@ -55,6 +55,7 @@ public class LessonController {
                     .collect(Collectors.toList());
             StudentListWrapper studentWrapper = new StudentListWrapper();
             studentWrapper.setStudents((ArrayList<Student>) students);
+            studentWrapper.setDate(lesson.getDate());
             model.addAttribute("wrapper", studentWrapper);
         }
         return "list";
