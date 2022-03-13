@@ -1,6 +1,7 @@
 package andersen.randomize.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,13 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "lesson_id")
     )
     private List<Lesson> lessons;
+
+    public void addLesson(Lesson lesson) {
+        if (lessons == null) {
+            lessons = new ArrayList<>();
+        }
+        lessons.add(lesson);
+    }
 
     @Transient
     private boolean present;

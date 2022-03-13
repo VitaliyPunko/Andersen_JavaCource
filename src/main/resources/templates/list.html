@@ -48,12 +48,12 @@
                 <!--                <input type="hidden" th:field="*{students[__${stat.index}__].present}" />-->
             </td>
         </tr>
+        <tr>
+             <input type="hidden" th:field="*{date}" />
+        </tr>
         </tbody>
     </table>
     <input type="submit" value="Star the game">
 </form>
-<br>
-<a class="btn btn-primary" th:href="@{/start}" href="http://localhost:8080/begin" role="button">Begin</a>
-
 </body>
 </html>
