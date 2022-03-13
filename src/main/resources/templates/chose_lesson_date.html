@@ -8,11 +8,12 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style-chose.css" th:href="@{/css/style-chose.css}"/>
     <title>Title</title>
 </head>
 <body>
 <div class="chose_date">
-    <h2>Chose a lesson date</h2>
+    <h2>Choose the lesson date</h2>
     <div class="chose_date_form">
         <form th:action="@{/choseDate}" th:method="post" th:object="${lesson}">
             <div>
@@ -23,7 +24,7 @@
             <th:block th:if="${#fields.hasErrors('date')}">
                 <div th:errorclass="invalid-input" th:errors="*{date}" style="color: red"></div>
             </th:block>
-            <input type="submit" value="Chose date"/>
+            <input type="submit" value="Choose date"/>
         </form>
     </div>
 </div>
