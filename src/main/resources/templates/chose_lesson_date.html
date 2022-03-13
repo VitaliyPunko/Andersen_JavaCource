@@ -11,11 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<div id="side_bar" class="clearfix">
-    <h1 style="float: left;">Randomize greets you, friend</h1>
-    <a href="#" class="btn btn-outline-dark btn-lg" role="button"
-       style="float: right; position: relative; top: 3px; right: 10px;">Start the game</a>
-</div>
 <div class="chose_date">
     <h2>Chose a lesson date</h2>
     <div class="chose_date_form">
@@ -25,6 +20,9 @@
             </div>
             <label for="lesson_date">Lesson date</label>
             <input id="lesson_date" type="date" th:field="*{date}"/>
+            <th:block th:if="${#fields.hasErrors('date')}">
+                <div th:errorclass="invalid-input" th:errors="*{date}" style="color: red"></div>
+            </th:block>
             <input type="submit" value="Chose date"/>
         </form>
     </div>

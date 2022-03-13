@@ -1,9 +1,11 @@
 package andersen.randomize.entity;
 
+import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,6 +18,7 @@ public class Lesson {
     private int id;
 
     @Column(name = "date")
+    @NotNull(message = "date is a required field")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
@@ -26,6 +29,13 @@ public class Lesson {
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private List<Student> students;
+
+    public void addStudent(Student student) {
+        if (students == null) {
+            students = new ArrayList<>();
+        }
+        students.add(student);
+    }
 
     public Lesson() {
     }
