@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,13 +22,6 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-//    @PostMapping("/presentStudents")
-//    String getAllPresent(@ModelAttribute("studentList") StudentListWrapper studentWrapper, Model model) {
-//        List<Student> presentedToday = studentService.getPresentedStudentById(studentWrapper); //this return rows only with id
-//        model.addAttribute("presentedStudents", presentedToday);
-//        return "presentList";
-//    }
-
     @PostMapping("/presentStudents")
     String getAllPresent(@ModelAttribute("studentList") StudentListWrapper studentWrapper, Model model) {
         studentService.getPresentedStudentById(studentWrapper); //this return rows only with id
@@ -35,13 +29,23 @@ public class StudentController {
     }
 
     @GetMapping("/start")
-    String startGame(Model ask, Model answer) {
+    String startGame(Model studentsGradeWrapper) {
         List<Student> players = studentService.findRandomPlayers();
+        StudentListWrapper listWrapper = new StudentListWrapper();
+        listWrapper.setStudents((ArrayList<Student>) players);
         if (players.isEmpty()) {
             return "redirect:/start"; //redirect to list with today's students
         }
-        ask.addAttribute("ask", players.get(0));
-        answer.addAttribute("answer", players.get(1));
+        studentsGradeWrapper.addAttribute("studentsGradeWrapper", listWrapper);
         return "random";
+    }
+
+    @PostMapping("/estimate")
+    String estimateStudent(@ModelAttribute("studentsGradeWrapper") StudentListWrapper studentsGradeWrapper) {
+        if (studentsGradeWrapper.getStudents().isEmpty()) {
+
+        }
+        studentService.changeStudentGrade(studentsGradeWrapper);
+        return "redirect:/start";
     }
 }

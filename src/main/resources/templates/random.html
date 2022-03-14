@@ -10,54 +10,42 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <title>Random game</title>
 </head>
 
 <body>
-Ask: <span th:text="${ask.getName()}">Ask</span>
-<br>
-Answer: <span th:text="${answer.getName()}">Answer</span>
-
 <div>
-    <div class="correct_btn">
-        <a class="btn btn-primary" th:href="@{/correct}" href="http://localhost:8080/correct" role="button"
-           onclick="display('correct_text')">Correct</a>
-
-        <div id="correct_text" class="correct_text_none" style="display: none">
-            <span th:text="${ask.getName()}">Get one point </span>
-            <span th:text="${answer.getName()}">Get one point </span>
-        </div>
-    </div>
-    <div class="inaccurate_btn">
-        <a class="btn btn-primary" th:href="@{/inaccurate}" href="http://localhost:8080/inaccurate" role="button"
-           onclick="display('inaccurate_text')">Inaccurate</a>
-        <div id="inaccurate_text" class="inaccurate_text_none" style="display: none">
-            <span th:text="${ask.getName()}">Get one point </span>
-            <span th:text="${answer.getName()}">Get a half point </span>
-        </div>
-    </div>
-    <div class="wrong_btn">
-        <a class="btn btn-primary" th:href="@{/wrong}" href="http://localhost:8080/wrong" role="button">Wrong</a>
-        <div id="wrong_text" class="wrong_text_none" style="display: none">
-            <span th:text="${ask.getName()}">Get one point </span>
-            <span th:text="${answer.getName()}">Get zero point </span>
-        </div>
-    </div>
-
+    <form th:action="@{/estimate}" th:method="post" th:object="${studentsGradeWrapper}">
+        <input id="field_residentId"
+               type="hidden"
+               th:field="*{students}"/>
+        <table class="table table-striped table-dark table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Ask:</th>
+                <td><span th:text="${studentsGradeWrapper.getStudents().get(0).getName()}">First student</span>
+                    Team:
+                    <span th:text="${studentsGradeWrapper.getStudents().get(0).getTeam().getId()}">Student's score</span>
+                </td>
+                <td>
+                    <input type="number" step=0.1 th:field="*{askGrade}"/>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Answer:</th>
+                <td><span th:text="${studentsGradeWrapper.getStudents().get(1).getName()}">Second student</span>
+                    Team:
+                    <span th:text="${studentsGradeWrapper.getStudents().get(1).getTeam().getId()}">Student's score</span>
+                </td>
+                <td>
+                    <input type="number" step=0.1 th:field="*{answerGrade}"/>
+                </td>
+            </tr>
+            </thead>
+        </table>
+        <input type="submit" value="Next question"/>
+    </form>
 </div>
-
-<br>
-
-<div>
-    <a class="btn btn-primary" href="http://localhost:8080/findAll" role="button">To the list</a>
-    <a class="btn btn-primary" href="#" role="button">Next question</a>
-</div>
-<script>
-    function display(id) {
-        document.getElementById(id).style.display = "block";
-    };
-</script>
 
 </body>
 </html>

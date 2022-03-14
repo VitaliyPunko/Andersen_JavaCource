@@ -46,23 +46,6 @@ public class Student {
 
     public Student() {
     }
-//
-//    public Student(int id, String name, double score, boolean isCapitan) {
-//        this.id = id;
-//        this.name = name;
-//        this.score = score;
-//        this.isCapitan = isCapitan;
-//    }
-//
-//    public Student(int id, String name, double score, boolean isCapitan, Team team, List<Lesson> lessons, boolean isPresent) {
-//        this.id = id;
-//        this.name = name;
-//        this.score = score;
-//        this.isCapitan = isCapitan;
-//        this.team = team;
-//        this.lessons = lessons;
-//        this.isPresent = isPresent;
-//    }
 
     public int getId() {
         return id;

@@ -10,4 +10,6 @@ public interface StudentService {
     void getPresentedStudentById(StudentListWrapper studentWrapper);
 
     List<Student> findRandomPlayers();
+
+    void changeStudentGrade(StudentListWrapper studentsGradeWrapper);
 }
