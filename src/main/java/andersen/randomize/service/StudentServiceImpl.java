@@ -4,14 +4,13 @@ import andersen.randomize.dao.LessonRepository;
 import andersen.randomize.dao.StudentRepository;
 import andersen.randomize.entity.Lesson;
 import andersen.randomize.entity.Student;
+import andersen.randomize.entity.Team;
 import andersen.randomize.service.wrapper.StudentListWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +30,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void getPresentedStudentById(StudentListWrapper studentWrapper) {
+        LOGGER.debug("Looking for new players");
+        //ToDo: make necessary students
         List<Student> studentsOnlyWithId = studentWrapper.getStudents().stream().filter(s -> s.getId() > 0).collect(Collectors.toList());
         List<Student> presentStudent = new ArrayList<>();
         Lesson lesson = studentWrapper.getLesson();
@@ -46,6 +47,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findRandomPlayers() {
+        LOGGER.debug("Start finding random players");
         if (askList.isEmpty() && answerList.isEmpty()) {
             return Collections.emptyList();
         }
@@ -57,6 +59,9 @@ public class StudentServiceImpl implements StudentService {
         //TODO: что делать есть остались из одной команды или лишний студент?
         while (ask.getId() == answer.getId() || ask.getTeam() == answer.getTeam()) {                     //проверяем не совпадают ли студенты
             if (askList.size() == 1 && answerList.size() == 1) {  //если размеры обоих листов = 1, то осталось по одному студенту
+                break;
+            }
+            if (isOneTeam(askList, answerList)) { //if remained students from one team -> ask each other
                 break;
             }
             answerNumber = (int) (Math.random() * answerList.size());
@@ -71,6 +76,39 @@ public class StudentServiceImpl implements StudentService {
         answerList.remove(answerNumber);
 
         return outputTwoStudents;
+    }
+
+    @Override
+    public void changeStudentGrade(StudentListWrapper studentsGradeWrapper) {
+        LOGGER.debug("Change student's garde");
+        Student askStudent = studentsGradeWrapper.getStudents().get(0);
+        Student answerStudent = studentsGradeWrapper.getStudents().get(1);
+        askStudent.setScore(askStudent.getScore() + studentsGradeWrapper.getAskGrade());
+        answerStudent.setScore(answerStudent.getScore() + studentsGradeWrapper.getAnswerGrade());
+        studentRepository.save(askStudent);
+        studentRepository.save(answerStudent);
+    }
+
+    /**
+     * Check if students from one team. And if there aren't other teams
+     *
+     * @param askList    - ask students
+     * @param answerList - answer stidents
+     * @return is remained students from one team
+     */
+    private boolean isOneTeam(List<Student> askList, List<Student> answerList) {
+        Set<Team> askTeams = new HashSet<>();
+        Set<Team> answerTeams = new HashSet<>();
+        for (Student askStudent : askList) {
+            askTeams.add(askStudent.getTeam());
+        }
+        for (Student answerStudent : answerList) {
+            answerTeams.add(answerStudent.getTeam());
+        }
+        if (askTeams.size() == 1 && answerTeams.size() == 1) {
+            return askTeams.containsAll(answerTeams);
+        }
+        return false;
     }
 
 
