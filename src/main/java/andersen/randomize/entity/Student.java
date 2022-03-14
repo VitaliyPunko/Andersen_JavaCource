@@ -26,6 +26,9 @@ public class Student {
     @JoinColumn(name = "team_id")
     private Team team;
 
+//    @Column(name= "phone")
+//    private String phone;
+
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "student_lesson",
@@ -119,6 +122,14 @@ public class Student {
     public void setPresent(boolean present) {
         this.present = present;
     }
+
+//    public String getPhone() {
+//        return phone;
+//    }
+//
+//    public void setPhone(String phone) {
+//        this.phone = phone;
+//    }
 
     @Override
     public String toString() {

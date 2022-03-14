@@ -70,12 +70,16 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+
+
     </dependencies>
 
 
@@ -94,10 +98,11 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.6.3</version>
-
+                <configuration>
+                    <propertyFile>${project.basedir}/src/main/resources/liquibase.properties</propertyFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
 
 </project>
