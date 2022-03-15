@@ -4,6 +4,8 @@ import andersen.randomize.dao.LessonRepository;
 import andersen.randomize.dao.StudentRepository;
 import andersen.randomize.entity.Lesson;
 import andersen.randomize.entity.Student;
+import andersen.randomize.entity.dto.LessonDto;
+import andersen.randomize.service.LessonMapperImpl;
 import andersen.randomize.service.StudentService;
 import andersen.randomize.service.wrapper.StudentListWrapper;
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +34,15 @@ public class StudentController {
     private final StudentService studentService;
     private final StudentRepository studentRepository;
     private final LessonRepository lessonRepository;
+    private final LessonMapperImpl lessonMapper;
 
     private LocalDate date;
 
-    public StudentController(StudentService studentService, StudentRepository studentRepository, LessonRepository lessonRepository) {
+    public StudentController(StudentService studentService, StudentRepository studentRepository, LessonRepository lessonRepository, LessonMapperImpl lessonMapper) {
         this.studentService = studentService;
         this.studentRepository = studentRepository;
         this.lessonRepository = lessonRepository;
+        this.lessonMapper = lessonMapper;
     }
 
     @PostMapping("/presentStudents")
@@ -51,7 +56,7 @@ public class StudentController {
     }
 
     @GetMapping("/start")
-    String startGame(Model studentsGradeWrapper) {
+    String startGame(Model studentsGradeWrapper) throws NoSuchAlgorithmException {
         List<Student> players = studentService.findRandomPlayers();
         if (players.isEmpty()) {
             return "redirect:/findAllByDate"; //redirect to list with today's students
@@ -63,7 +68,7 @@ public class StudentController {
     }
 
     @PostMapping("/estimate")
-    String estimateStudent(@ModelAttribute("studentsGradeWrapper") StudentListWrapper studentsGradeWrapper, Model model) {
+    String estimateStudent(@ModelAttribute("studentsGradeWrapper") StudentListWrapper studentsGradeWrapper) {
         studentService.changeStudentGrade(studentsGradeWrapper);
         return REDIRECT_START;
     }
@@ -83,16 +88,17 @@ public class StudentController {
     }
 
     @PostMapping("/choseDate")
-    String showStudentByDate(@Valid @ModelAttribute("lesson") Lesson lesson, BindingResult bindingResult, Model model) {
+    String showStudentByDate(@Valid @ModelAttribute("lesson") LessonDto lessonDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "chose_lesson_date";
         }
-        if (lesson.getDate().isBefore(LocalDate.now())) {
-            date = lesson.getDate();
+        if (lessonDto.getDate().isBefore(LocalDate.now())) {
+            date = lessonDto.getDate();
             List<Student> students = studentService.findAllByDate(date);
-            LOGGER.debug("Students are: {} were at date {}", students, lesson.getDate());
+            LOGGER.debug("Students are: {} were at date {}", students, lessonDto.getDate());
             return "redirect:/findAllByDate";
         } else {
+            Lesson lesson = lessonMapper.toEntity(lessonDto);
             lessonRepository.save(lesson);//create new lesson
             List<Student> students = StreamSupport.stream(studentRepository.findAll().spliterator(), false)
                     .collect(Collectors.toList());

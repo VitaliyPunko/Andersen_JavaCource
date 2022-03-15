@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,7 +34,6 @@ public class StudentServiceImpl implements StudentService {
 
     public void getPresentedStudentById(StudentListWrapper studentWrapper) {
         LOGGER.debug("Looking for new players");
-        //ToDo: make necessary students
         List<Student> studentsOnlyWithId = studentWrapper.getStudents().stream().filter(s -> s.getId() > 0).collect(Collectors.toList());
         List<Student> presentStudent = new ArrayList<>();
         Lesson lesson = studentWrapper.getLesson();
@@ -46,13 +47,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findRandomPlayers() {
+    public List<Student> findRandomPlayers() throws NoSuchAlgorithmException {
+        Random random = SecureRandom.getInstanceStrong();
         LOGGER.debug("Start finding random players");
         if (askList.isEmpty() && answerList.isEmpty()) {
             return Collections.emptyList();
         }
-        int askNumber = (int) (Math.random() * askList.size()); //number of ask student from 0 to askList size not inclusive
-        int answerNumber = (int) (Math.random() * answerList.size());     //number of ask student from 0 to askList size not inclusive
+        int askNumber = random.nextInt(askList.size()); //number of ask student from 0 to askList size not inclusive
+        int answerNumber = random.nextInt(answerList.size());     //number of ask student from 0 to askList size not inclusive
         Student ask = askList.get(askNumber);
         Student answer = answerList.get(answerNumber);
 
@@ -63,7 +65,9 @@ public class StudentServiceImpl implements StudentService {
             if (isOneTeam(askList, answerList)) { //if remained students from one team -> ask each other
                 break;
             }
-            answerNumber = (int) (Math.random() * answerList.size());
+            askNumber = random.nextInt(askList.size());
+            ask = askList.get(answerNumber);
+            answerNumber = random.nextInt(answerList.size());
             answer = answerList.get(answerNumber);
         }
         List<Student> outputTwoStudents = new ArrayList<>(); //return two students to front
