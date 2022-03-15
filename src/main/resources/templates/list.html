@@ -14,8 +14,8 @@
     <title>Hello, world!</title>
 </head>
 
-<body>
-<form th:action="@{/presentStudents}" th:method="post" th:object="${wrapper}">
+<body style="background-image: url(../static/img/butterfly-background.jpg)">
+<form th:action="@{/presentStudents}" th:method="post" th:object="${wrapper}" style="opacity: 90%">
     <table class="table table-striped table-dark table-hover">
         <thead>
         <tr>
@@ -33,7 +33,7 @@
             <td><span th:text="${current.score}"> Score</span></td>
             <td><span th:text="${current.isCapitan}"> Score</span></td>
             <td>
-                <input type="checkbox" class="is_student_present" placeholder="Enter"
+                <input type="checkbox" class="is_student_present" style="height: 30px; width: 30px; border-radius: " placeholder="Enter"
                        th:name="|students[${stat.index}].id|"
                        th:value="${current.getId()}"
                        th:checked="${current.isPresent()}"/>
@@ -50,7 +50,7 @@
         </tr>
         </tbody>
     </table>
-    <input type="submit" value="Star the game">
+    <input type="submit" value="Start the game">
 </form>
 </body>
 </html>
