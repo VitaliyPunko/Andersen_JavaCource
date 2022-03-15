@@ -95,7 +95,6 @@ public class StudentController {
         if (lessonDto.getDate().isBefore(LocalDate.now())) {
             date = lessonDto.getDate();
             List<Student> students = studentService.findAllByDate(date);
-            LOGGER.debug("Students are: {} were at date {}", students, lessonDto.getDate());
             return "redirect:/findAllByDate";
         } else {
             Lesson lesson = lessonMapper.toEntity(lessonDto);
