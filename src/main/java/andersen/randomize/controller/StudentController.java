@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class StudentController {
     }
 
     @GetMapping("/start")
-    String startGame(Model studentsGradeWrapper) {
+    String startGame(Model studentsGradeWrapper) throws NoSuchAlgorithmException {
         List<Student> players = studentService.findRandomPlayers();
         if (players.isEmpty()) {
             return "redirect:/findAllByDate"; //redirect to list with today's students
