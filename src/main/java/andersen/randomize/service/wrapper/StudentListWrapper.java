@@ -12,6 +12,13 @@ public class StudentListWrapper {
     public StudentListWrapper() {
     }
 
+    public StudentListWrapper(ArrayList<Student> students, Lesson lesson, double askGrade, double answerGrade) {
+        this.students = students;
+        this.lesson = lesson;
+        this.askGrade = askGrade;
+        this.answerGrade = answerGrade;
+    }
+
     private ArrayList<Student> students;
 
     private Lesson lesson;

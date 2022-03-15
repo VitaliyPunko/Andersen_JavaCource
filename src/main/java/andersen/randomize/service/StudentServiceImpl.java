@@ -63,6 +63,8 @@ public class StudentServiceImpl implements StudentService {
             if (isOneTeam(askList, answerList)) { //if remained students from one team -> ask each other
                 break;
             }
+            askNumber = (int) (Math.random() * askList.size());
+            ask = askList.get(answerNumber);
             answerNumber = (int) (Math.random() * answerList.size());
             answer = answerList.get(answerNumber);
         }
