@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,9 +38,8 @@ public class StudentServiceImpl implements StudentService {
         Lesson lesson = studentWrapper.getLesson();
         for (int i = 0; i < studentsOnlyWithId.size(); i++) {
             presentStudent.add(studentRepository.findById(studentsOnlyWithId.get(i).getId()).orElse(new Student()));
-//            presentStudent.get(i).addLesson(studentWrapper.getLesson());
             lesson.addStudent(presentStudent.get(i));
-        }  //save how?
+        }
         lessonRepository.save(lesson);
         askList = new ArrayList<>(presentStudent);
         answerList = new ArrayList<>(presentStudent);
@@ -56,7 +56,6 @@ public class StudentServiceImpl implements StudentService {
         Student ask = askList.get(askNumber);
         Student answer = answerList.get(answerNumber);
 
-        //TODO: что делать есть остались из одной команды или лишний студент?
         while (ask.getId() == answer.getId() || ask.getTeam() == answer.getTeam()) {                     //проверяем не совпадают ли студенты
             if (askList.size() == 1 && answerList.size() == 1) {  //если размеры обоих листов = 1, то осталось по одному студенту
                 break;
@@ -87,6 +86,11 @@ public class StudentServiceImpl implements StudentService {
         answerStudent.setScore(answerStudent.getScore() + studentsGradeWrapper.getAnswerGrade());
         studentRepository.save(askStudent);
         studentRepository.save(answerStudent);
+    }
+
+    @Override
+    public List<Student> findAllByDate(LocalDate date) {
+        return studentRepository.findAllByDate(date);
     }
 
     /**

@@ -22,24 +22,21 @@
         <th scope="col">Name</th>
         <th scope="col">Score</th>
         <th scope="col">isCapitan</th>
-        <th scope="col">isPresent</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${presentedStudents.empty}">
+    <tr th:if="${studentsByDate.empty}">
         <td colspan="4"> There aren't student</td>
     </tr>
-    <tr th:each="list : ${presentedStudents}">
+    <tr th:each="list : ${studentsByDate}">
         <td><span th:text="${list.id}"> Id</span></td>
         <td><span th:text="${list.name}">Name</span></td>
         <td><span th:text="${list.score}"> Score</span></td>
         <td><span th:text="${list.isCapitan()}"> IsCapitan</span></td>
-        <td><span th:text="${list.isPresent()}"> IsPresent</span></td>
     </tr>
     </tbody>
 </table>
 <br>
-<a class="btn btn-primary" th:href="@{/start}" href="http://localhost:8080/begin" role="button">Begin</a>
 
 </body>
 </html>

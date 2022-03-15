@@ -27,9 +27,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${wrapper.students.empty}">
-            <td colspan="4"> There aren't student</td>
-        </tr>
         <tr th:each="current, stat : *{students}">
             <td><span th:text="${current.id}"> Id</span></td>
             <td><span th:text="${current.name}">Name</span></td>
