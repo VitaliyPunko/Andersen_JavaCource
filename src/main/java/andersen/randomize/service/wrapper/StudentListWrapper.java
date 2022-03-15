@@ -2,11 +2,9 @@ package andersen.randomize.service.wrapper;
 
 import andersen.randomize.entity.Lesson;
 import andersen.randomize.entity.Student;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-@Component
 public class StudentListWrapper {
 
     public StudentListWrapper() {

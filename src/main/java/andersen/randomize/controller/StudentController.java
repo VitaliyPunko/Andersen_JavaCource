@@ -45,6 +45,41 @@ public class StudentController {
         this.lessonMapper = lessonMapper;
     }
 
+    @GetMapping("/choseLessonDate")
+    String goToChoseLessonDatePage(Model model) {
+        model.addAttribute("lesson", new Lesson());
+        return "chose_lesson_date";
+    }
+
+    @PostMapping("/choseDate")
+    String showStudentByDate(@Valid @ModelAttribute("lesson") LessonDto lessonDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "chose_lesson_date";
+        }
+        if (lessonDto.getDate().isBefore(LocalDate.now())) {
+            date = lessonDto.getDate();
+            return "redirect:/findAllByDate";
+        } else {
+            Lesson lesson = lessonMapper.toEntity(lessonDto);
+            lessonRepository.save(lesson);//create new lesson
+            List<Student> students = StreamSupport.stream(studentRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+            StudentListWrapper studentWrapper = new StudentListWrapper();
+            studentWrapper.setStudents((ArrayList<Student>) students);
+            studentWrapper.setLesson(lesson);
+            model.addAttribute("wrapper", studentWrapper);
+        }
+        return "list";
+    }
+
+    @GetMapping("/findAllByDate")
+    public String findAllByDate(Model model) {
+        LOGGER.debug("Find all by date");
+        List<Student> studentsByDate = studentService.findAllByDate(date);
+        model.addAttribute("studentsByDate", studentsByDate);
+        return "presentList";
+    }
+
     @PostMapping("/presentStudents")
     String getAllPresent(@Valid @ModelAttribute("studentList") StudentListWrapper studentWrapper, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -71,41 +106,5 @@ public class StudentController {
     String estimateStudent(@ModelAttribute("studentsGradeWrapper") StudentListWrapper studentsGradeWrapper) {
         studentService.changeStudentGrade(studentsGradeWrapper);
         return REDIRECT_START;
-    }
-
-    @GetMapping("/findAllByDate")
-    public String findAllByDate(Model model) {
-        LOGGER.debug("Find all by date");
-        List<Student> studentsByDate = studentService.findAllByDate(date);
-        model.addAttribute("studentsByDate", studentsByDate);
-        return "presentList";
-    }
-
-    @GetMapping("/choseLessonDate")
-    String goToChoseLessonDatePage(Model model) {
-        model.addAttribute("lesson", new Lesson());
-        return "chose_lesson_date";
-    }
-
-    @PostMapping("/choseDate")
-    String showStudentByDate(@Valid @ModelAttribute("lesson") LessonDto lessonDto, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "chose_lesson_date";
-        }
-        if (lessonDto.getDate().isBefore(LocalDate.now())) {
-            date = lessonDto.getDate();
-            List<Student> students = studentService.findAllByDate(date);
-            return "redirect:/findAllByDate";
-        } else {
-            Lesson lesson = lessonMapper.toEntity(lessonDto);
-            lessonRepository.save(lesson);//create new lesson
-            List<Student> students = StreamSupport.stream(studentRepository.findAll().spliterator(), false)
-                    .collect(Collectors.toList());
-            StudentListWrapper studentWrapper = new StudentListWrapper();
-            studentWrapper.setStudents((ArrayList<Student>) students);
-            studentWrapper.setLesson(lesson);
-            model.addAttribute("wrapper", studentWrapper);
-        }
-        return "list";
     }
 }
