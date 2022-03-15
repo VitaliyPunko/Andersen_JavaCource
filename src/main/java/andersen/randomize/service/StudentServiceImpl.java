@@ -56,7 +56,6 @@ public class StudentServiceImpl implements StudentService {
         Student ask = askList.get(askNumber);
         Student answer = answerList.get(answerNumber);
 
-        //TODO: что делать есть остались из одной команды или лишний студент?
         while (ask.getId() == answer.getId() || ask.getTeam() == answer.getTeam()) {                     //проверяем не совпадают ли студенты
             if (askList.size() == 1 && answerList.size() == 1) {  //если размеры обоих листов = 1, то осталось по одному студенту
                 break;

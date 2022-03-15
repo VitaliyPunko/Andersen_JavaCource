@@ -1,6 +1,8 @@
 package andersen.randomize.controller;
 
+import andersen.randomize.dao.LessonRepository;
 import andersen.randomize.dao.StudentRepository;
+import andersen.randomize.entity.Lesson;
 import andersen.randomize.entity.Student;
 import andersen.randomize.service.StudentService;
 import andersen.randomize.service.wrapper.StudentListWrapper;
@@ -17,18 +19,25 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class StudentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 
-    private static final String redirectStart = "redirect:/start";
+    private static final String REDIRECT_START = "redirect:/start";
     private final StudentService studentService;
+    private final StudentRepository studentRepository;
+    private final LessonRepository lessonRepository;
+
     private LocalDate date;
 
-    public StudentController(StudentService studentService, StudentRepository studentRepository) {
+    public StudentController(StudentService studentService, StudentRepository studentRepository, LessonRepository lessonRepository) {
         this.studentService = studentService;
+        this.studentRepository = studentRepository;
+        this.lessonRepository = lessonRepository;
     }
 
     @PostMapping("/presentStudents")
@@ -38,7 +47,7 @@ public class StudentController {
         }
         date = studentWrapper.getLesson().getDate();
         studentService.getPresentedStudentById(studentWrapper); //this return rows only with id
-        return redirectStart;
+        return REDIRECT_START;
     }
 
     @GetMapping("/start")
@@ -56,7 +65,7 @@ public class StudentController {
     @PostMapping("/estimate")
     String estimateStudent(@ModelAttribute("studentsGradeWrapper") StudentListWrapper studentsGradeWrapper, Model model) {
         studentService.changeStudentGrade(studentsGradeWrapper);
-        return redirectStart;
+        return REDIRECT_START;
     }
 
     @GetMapping("/findAllByDate")
@@ -65,5 +74,33 @@ public class StudentController {
         List<Student> studentsByDate = studentService.findAllByDate(date);
         model.addAttribute("studentsByDate", studentsByDate);
         return "presentList";
+    }
+
+    @GetMapping("/choseLessonDate")
+    String goToChoseLessonDatePage(Model model) {
+        model.addAttribute("lesson", new Lesson());
+        return "chose_lesson_date";
+    }
+
+    @PostMapping("/choseDate")
+    String showStudentByDate(@Valid @ModelAttribute("lesson") Lesson lesson, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "chose_lesson_date";
+        }
+        if (lesson.getDate().isBefore(LocalDate.now())) {
+            date = lesson.getDate();
+            List<Student> students = studentService.findAllByDate(date);
+            LOGGER.debug("Students are: {} were at date {}", students, lesson.getDate());
+            return "redirect:/findAllByDate";
+        } else {
+            lessonRepository.save(lesson);//create new lesson
+            List<Student> students = StreamSupport.stream(studentRepository.findAll().spliterator(), false)
+                    .collect(Collectors.toList());
+            StudentListWrapper studentWrapper = new StudentListWrapper();
+            studentWrapper.setStudents((ArrayList<Student>) students);
+            studentWrapper.setLesson(lesson);
+            model.addAttribute("wrapper", studentWrapper);
+        }
+        return "list";
     }
 }
