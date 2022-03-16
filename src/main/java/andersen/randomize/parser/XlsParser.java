@@ -1,66 +1,51 @@
 package andersen.randomize.parser;
 
-
+import andersen.randomize.entity.Student;
+import andersen.randomize.entity.Team;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-
-
+import java.util.Iterator;
 
 public class XlsParser {
 
-    private String file = "";
-    public static Logger LOGGER = LoggerFactory.getLogger(XlsParser.class);
-
-    Workbook workbook;
-
     {
-        try (FileInputStream fileInputStream = new FileInputStream(file)){
-
-            workbook = new HSSFWorkbook(new FileInputStream(String.valueOf(fileInputStream)));
-            for (Row row: workbook.getSheetAt(0)){
-                for (Cell cell: row){
-                   LOGGER.debug(getCell(cell));
+        Workbook wb = null;
+        try {
+            wb = new HSSFWorkbook(new FileInputStream("C:\\Users\\Daria\\Desktop\\students.xls"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        HSSFSheet sheet = (HSSFSheet) wb.getSheetAt(0);
+        Iterator<Row> rowIterator = sheet.iterator();
+        Student student = new Student();
+        Team team = new Team();
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+            Iterator<Cell> cellIterator = row.cellIterator();
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                switch (cell.getCellType()) {
+                    case STRING:
+                        student.setName(cell.getStringCellValue());
+                        break;
+                    case NUMERIC:
+                        team.setId((int) cell.getNumericCellValue());
+                        student.setTeam(team);
+                        break;
+                    case BOOLEAN:
+                        student.setCapitan(Boolean.parseBoolean(Boolean.toString(cell.getBooleanCellValue())));
+                        break;
+                    default:
+                        break;
                 }
             }
-
-        } catch (IOException e) {
-            LOGGER.error("context", e);
+            System.out.println("Student \n" + student + "  ");
         }
-
     }
-
-
-    public static String getCell(Cell cell) {
-        String res ="";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-DD");
-
-        switch (cell.getCellType()) {
-            case STRING:
-                res= cell.getRichStringCellValue().getString().toString();
-                break;
-            case NUMERIC:
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    res =sdf.format(cell.getDateCellValue().toString()) ;
-                } else {
-                    res =Double.toString(cell.getNumericCellValue()) ;
-                }
-                break;
-            case BOOLEAN:
-                res = Boolean.toString(cell.getBooleanCellValue());
-                break;
-            default:
-               break;
-        }
-        return res;
-    }
-
 }

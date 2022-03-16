@@ -1,0 +1,1 @@
+insert into teams values(1), (2), (3);
