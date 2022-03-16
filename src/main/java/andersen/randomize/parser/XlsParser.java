@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 public class XlsParser {
 
+
     {
         Workbook wb = null;
         try {
@@ -22,6 +23,7 @@ public class XlsParser {
         } catch (IOException ex) {
             Logger.getLogger(ex.toString());
         }
+
         HSSFSheet sheet = (HSSFSheet) wb.getSheetAt(0);
         Iterator<Row> rowIterator = sheet.iterator();
         Student student = new Student();
