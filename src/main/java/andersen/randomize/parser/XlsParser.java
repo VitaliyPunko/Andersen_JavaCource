@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 public class XlsParser {
 
@@ -19,7 +20,7 @@ public class XlsParser {
         try {
             wb = new HSSFWorkbook(new FileInputStream("C:\\Users\\Daria\\Desktop\\students.xls"));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(ex.toString());
         }
         HSSFSheet sheet = (HSSFSheet) wb.getSheetAt(0);
         Iterator<Row> rowIterator = sheet.iterator();
@@ -45,7 +46,7 @@ public class XlsParser {
                         break;
                 }
             }
-            System.out.println("Student \n" + student + "  ");
+            Logger.getLogger("Student \n" + student + "  ");
         }
     }
 }
