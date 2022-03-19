@@ -18,6 +18,11 @@ public class StudentListWrapper {
         this.answerGrade = answerGrade;
     }
 
+    public StudentListWrapper(ArrayList<Student> students, Lesson lesson) {
+        this.students = students;
+        this.lesson = lesson;
+    }
+
     @NotNull
     private ArrayList<Student> students;
 

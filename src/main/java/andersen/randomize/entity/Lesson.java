@@ -1,9 +1,9 @@
 package andersen.randomize.entity;
 
-import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +38,11 @@ public class Lesson {
     }
 
     public Lesson() {
+    }
+
+    public Lesson(int id, LocalDate date) {
+        this.id = id;
+        this.date = date;
     }
 
     public int getId() {

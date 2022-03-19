@@ -50,6 +50,13 @@ public class Student {
     public Student() {
     }
 
+    public Student(int id, String name, double score, boolean captain) {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+        this.captain = captain;
+    }
+
     public int getId() {
         return id;
     }
