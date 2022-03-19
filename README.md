@@ -7,6 +7,26 @@
 
 * JDK 11
 * Apache Maven
+* mySQL
+
+You can download mySQL here: [https://www.mysql.com/downloads](https://www.mysql.com/downloads).
+
+## Setting
+
+After installing mySQL you need to create a user:
+
+```
+CREATE USER 'bestuser'@'localhost' IDENTIFIED BY 'bestuser';
+GRANT ALL PRIVILEGES ON *.* TO 'bestuser'@'localhost' WITH GRANT OPTION;
+```
+
+And a database:
+
+```
+drop database if exists andersen;
+create database andersen;
+use andersen;
+```
 
 ## Build application:
 
