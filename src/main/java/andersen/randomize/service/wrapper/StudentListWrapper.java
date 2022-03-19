@@ -3,6 +3,7 @@ package andersen.randomize.service.wrapper;
 import andersen.randomize.entity.Lesson;
 import andersen.randomize.entity.Student;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 public class StudentListWrapper {
@@ -17,6 +18,7 @@ public class StudentListWrapper {
         this.answerGrade = answerGrade;
     }
 
+    @NotNull
     private ArrayList<Student> students;
 
     private Lesson lesson;
