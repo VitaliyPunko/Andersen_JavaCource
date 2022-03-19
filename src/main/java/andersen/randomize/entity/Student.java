@@ -22,7 +22,7 @@ public class Student {
     @Column(name = "is_capitan")
     private boolean capitan;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id")
     private Team team;
 

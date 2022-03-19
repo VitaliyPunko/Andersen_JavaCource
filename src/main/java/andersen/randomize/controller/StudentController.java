@@ -47,7 +47,7 @@ public class StudentController {
 
     @GetMapping("/choseLessonDate")
     String goToChoseLessonDatePage(Model model) {
-        model.addAttribute("lesson", new Lesson());
+        model.addAttribute("lesson", new LessonDto());
         return "chose_lesson_date";
     }
 

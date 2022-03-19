@@ -42,41 +42,50 @@ public class StudentServiceImpl implements StudentService {
             lesson.addStudent(presentStudent.get(i));
         }
         lessonRepository.save(lesson);
-        askList = new ArrayList<>(presentStudent);
-        answerList = new ArrayList<>(presentStudent);
+        askList = fillList(presentStudent);
+        answerList = fillList(presentStudent);
     }
 
     @Override
     public List<Student> findRandomPlayers() throws NoSuchAlgorithmException {
         Random random = SecureRandom.getInstanceStrong();
         LOGGER.debug("Start finding random players");
-        if (askList.isEmpty() && answerList.isEmpty()) {
+        if (isBothListEmpty()) {
             return Collections.emptyList();
         }
-        int askNumber = random.nextInt(askList.size()); //number of ask student from 0 to askList size not inclusive
-        int answerNumber = random.nextInt(answerList.size());     //number of ask student from 0 to askList size not inclusive
+        int askNumber = random.nextInt(askList.size());
+        int answerNumber = random.nextInt(answerList.size());
         Student ask = askList.get(askNumber);
         Student answer = answerList.get(answerNumber);
 
-        while (ask.getId() == answer.getId() || ask.getTeam() == answer.getTeam()) {                     //проверяем не совпадают ли студенты
-            if (askList.size() == 1 && answerList.size() == 1) {  //если размеры обоих листов = 1, то осталось по одному студенту
+        boolean ifOnlyOneTeam = false;
+        while (ask.getId() == answer.getId() || ask.getTeam().getId() == answer.getTeam().getId()) {                    //if id and teams not equals    -> exit the loop
+            if (askList.size() == 1 && answerList.size() == 1) {                                                        //if there is only one player   -> exit the loop
                 break;
             }
-            if (isOneTeam(askList, answerList)) { //if remained students from one team -> ask each other
-                break;
+            if (ask.getId() == answer.getId()) {
+                ask = askList.get(random.nextInt(askList.size()));
+                answer = answerList.get(random.nextInt(answerList.size()));
+                continue;
             }
-            askNumber = random.nextInt(askList.size());
-            ask = askList.get(answerNumber);
-            answerNumber = random.nextInt(answerList.size());
-            answer = answerList.get(answerNumber);
+            while (ask.getTeam().getId() == answer.getTeam().getId()) {                                                 //if teams the same             -> ask about a count of teams
+                if (ifOnlyOneTeam(askList, answerList)) {                                                               //if there is only one team     -> exit the loop
+                    ifOnlyOneTeam = true;
+                    break;
+                }
+                ask = askList.get(random.nextInt(askList.size()));
+                answer = answerList.get(random.nextInt(answerList.size()));
+                if (ask.getId() == answer.getId()) break;
+            }
+            if (ifOnlyOneTeam) break;
         }
         List<Student> outputTwoStudents = new ArrayList<>(); //return two students to front
         outputTwoStudents.add(ask);
         outputTwoStudents.add(answer);
         LOGGER.debug("Student {} asks student {}", ask.getName(), answer.getName());
 
-        askList.remove(askNumber);
-        answerList.remove(answerNumber);
+        askList.remove(ask);
+        answerList.remove(answer);
 
         return outputTwoStudents;
     }
@@ -98,13 +107,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     * Check if students from one team. And if there aren't other teams
+     * Check if there aren't other teams
      *
      * @param askList    - ask students
      * @param answerList - answer stidents
      * @return is remained students from one team
      */
-    private boolean isOneTeam(List<Student> askList, List<Student> answerList) {
+    private boolean ifOnlyOneTeam(List<Student> askList, List<Student> answerList) {
         Set<Team> askTeams = new HashSet<>();
         Set<Team> answerTeams = new HashSet<>();
         for (Student askStudent : askList) {
@@ -113,11 +122,17 @@ public class StudentServiceImpl implements StudentService {
         for (Student answerStudent : answerList) {
             answerTeams.add(answerStudent.getTeam());
         }
-        if (askTeams.size() == 1 && answerTeams.size() == 1) {
-            return askTeams.containsAll(answerTeams);
-        }
-        return false;
+        return askTeams.size() == 1 && answerTeams.size() == 1;
     }
 
+    private List<Student> fillList(List<Student> present) {
+        List<Student> newList = new ArrayList<>(present.size());
+        newList.addAll(present);
+        return newList;
+    }
+
+    private boolean isBothListEmpty() {
+        return askList.isEmpty() && answerList.isEmpty();
+    }
 
 }

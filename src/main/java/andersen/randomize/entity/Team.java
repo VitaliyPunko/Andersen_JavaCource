@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "teams")
-public class Team {
+public class Team implements Comparable<Team> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,7 @@ public class Team {
     private int id;
 
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
-            mappedBy = "team", fetch = FetchType.LAZY)
+            mappedBy = "team")
     private List<Student> students;
 
     public int getId() {
@@ -37,5 +37,20 @@ public class Team {
         return "Team{" +
                 "id=" + id +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int compareTo(Team another) {
+        return this.id - another.id;
     }
 }

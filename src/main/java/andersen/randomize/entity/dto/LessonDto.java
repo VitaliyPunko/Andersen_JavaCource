@@ -3,6 +3,7 @@ package andersen.randomize.entity.dto;
 import andersen.randomize.entity.Student;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class LessonDto {
     private int id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "date is a required field")
     private LocalDate date;
 
     private List<Student> students;

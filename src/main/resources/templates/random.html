@@ -23,9 +23,13 @@
             <thead>
             <tr>
                 <th scope="col">Ask:</th>
-                <td><span th:text="${studentsGradeWrapper.getStudents().get(0).getName()}">First student</span>
+                <td>
+                    <span th:if="${studentsGradeWrapper.getStudents().get(0).getId() == studentsGradeWrapper.getStudents().get(1).getId()}">Teacher</span>
+                    <span th:unless="${studentsGradeWrapper.getStudents().get(0).getId() == studentsGradeWrapper.getStudents().get(1).getId()}">
+                    <span th:text="${studentsGradeWrapper.getStudents().get(0).getName()}">First student</span>
                     Team:
                     <span th:text="${studentsGradeWrapper.getStudents().get(0).getTeam().getId()}">Student's score</span>
+                    </span>
                 </td>
                 <td>
                     <input type="number" step=0.1 th:field="*{askGrade}"/>
