@@ -87,8 +87,7 @@
 }
 
 body {
-    background: url('../img/background.jpg') center center/cover no-repeat;
-    background-attachment: fixed;
+    background: url('../img/background.jpg') no-repeat fixed center center;
 }
 
 

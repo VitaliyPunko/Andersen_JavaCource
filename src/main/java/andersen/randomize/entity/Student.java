@@ -20,7 +20,7 @@ public class Student {
     private double score;
 
     @Column(name = "is_capitan")
-    private boolean capitan;
+    private boolean captain;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id")
@@ -74,12 +74,12 @@ public class Student {
         this.score = score;
     }
 
-    public boolean isCapitan() {
-        return capitan;
+    public boolean isCaptain() {
+        return captain;
     }
 
-    public void setCapitan(boolean capitan) {
-        this.capitan = capitan;
+    public void setCaptain(boolean captain) {
+        this.captain = captain;
     }
 
     public Team getTeam() {
@@ -120,7 +120,7 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", score=" + score +
-                ", isCapitan=" + capitan +
+                ", isCaptain=" + captain +
                 '}';
     }
 }

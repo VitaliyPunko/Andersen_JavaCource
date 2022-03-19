@@ -42,7 +42,7 @@ public class XlsParser {
                         student.setTeam(team);
                         break;
                     case BOOLEAN:
-                        student.setCapitan(Boolean.parseBoolean(Boolean.toString(cell.getBooleanCellValue())));
+                        student.setCaptain(Boolean.parseBoolean(Boolean.toString(cell.getBooleanCellValue())));
                         break;
                     default:
                         break;

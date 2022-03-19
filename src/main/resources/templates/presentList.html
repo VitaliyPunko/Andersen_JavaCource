@@ -10,7 +10,7 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
-
+    <link rel="stylesheet" href="../static/css/style-present.css" th:href="@{/css/style-present.css}"/>
     <title>Hello, world!</title>
 </head>
 
@@ -20,8 +20,8 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
+        <th scope="col">Team</th>
         <th scope="col">Score</th>
-        <th scope="col">isCapitan</th>
     </tr>
     </thead>
     <tbody>
@@ -30,9 +30,15 @@
     </tr>
     <tr th:each="list : ${studentsByDate}">
         <td><span th:text="${list.id}"> Id</span></td>
-        <td><span th:text="${list.name}">Name</span></td>
+        <td>
+            <span th:text="${list.name}">Name</span>
+            <span th:if="${list.captain == true}">
+                    <img class="captain_logo" src="../static/img/captain.png" th:src="@{/img/captain.png}"
+                         alt="capitan_picture">
+            </span>
+        </td>
+        <td><span th:text="${list.getTeam().getId()}"> Score</span></td>
         <td><span th:text="${list.score}"> Score</span></td>
-        <td><span th:text="${list.isCapitan()}"> IsCapitan</span></td>
     </tr>
     </tbody>
 </table>
