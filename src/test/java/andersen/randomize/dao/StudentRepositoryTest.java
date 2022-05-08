@@ -15,12 +15,11 @@ import java.util.List;
 class StudentRepositoryTest {
 
     @Autowired
-    private StudentRepository underTest;
-    private List<Student> students;
+    private StudentRepository studentRepository;
 
     @AfterEach
     public void teardown() {
-        underTest.deleteAll();
+        studentRepository.deleteAll();
     }
 
     @Test
@@ -31,11 +30,11 @@ class StudentRepositoryTest {
         Lesson lesson1 = new Lesson(1, LocalDate.now());
         student1.addLesson(lesson1);
         student2.addLesson(lesson1);
-        underTest.save(student1);
-        underTest.save(student2);
+        studentRepository.save(student1);
+        studentRepository.save(student2);
 
         //when
-        List<Student> studentByDate = underTest.findAllByDate(LocalDate.now());
+        List<Student> studentByDate = studentRepository.findAllByDate(LocalDate.now());
 
         //then
         Assertions.assertTrue(studentByDate.size() > 0);
@@ -51,11 +50,11 @@ class StudentRepositoryTest {
         Lesson lesson1 = new Lesson(1, LocalDate.now());
         student1.addLesson(lesson1);
         student2.addLesson(lesson1);
-        underTest.save(student1);
-        underTest.save(student2);
+        studentRepository.save(student1);
+        studentRepository.save(student2);
 
         //when
-        List<Student> studentByDate = underTest.findAllByDate(LocalDate.now().minusDays(5));
+        List<Student> studentByDate = studentRepository.findAllByDate(LocalDate.now().minusDays(5));
 
         //then
         Assertions.assertEquals(0, studentByDate.size());

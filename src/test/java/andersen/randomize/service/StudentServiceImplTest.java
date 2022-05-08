@@ -28,11 +28,11 @@ class StudentServiceImplTest {
     private StudentRepository studentRepository;
     @Mock
     private LessonRepository lessonRepository;
-    private StudentService underTest;
+    private StudentService studentService;
 
     @BeforeEach
     void setUp() {
-        underTest = new StudentServiceImpl(studentRepository, lessonRepository);
+        studentService = new StudentServiceImpl(studentRepository, lessonRepository);
     }
 
     @Test
@@ -47,7 +47,7 @@ class StudentServiceImplTest {
         StudentListWrapper studentListWrapper = new StudentListWrapper(arrayList, lesson);
 
         //when
-        underTest.getPresentedStudentById(studentListWrapper);
+        studentService.getPresentedStudentById(studentListWrapper);
 
         //then
         ArgumentCaptor<Lesson> lessonArgumentCaptor = ArgumentCaptor.forClass(Lesson.class);
@@ -70,7 +70,7 @@ class StudentServiceImplTest {
         StudentListWrapper studentListWrapper = new StudentListWrapper(arrayList, lesson);
 
         //when
-        underTest.getPresentedStudentById(studentListWrapper);
+        studentService.getPresentedStudentById(studentListWrapper);
 
         //then
         ArgumentCaptor<Integer> integerArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
